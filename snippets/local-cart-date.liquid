@@ -1,0 +1,26 @@
+<div class="localheadercart">
+  <h3>DELIVERY TIME</h3>
+  <p >When would you like your order delivered?</p>
+  <div class="datepicker"></div>
+  
+  <div class="loadingtime" style="display:none;">Finding available delivery times...</div>
+  <div class="selecttimeslot"  style="display:none;">Please select a time slot below:</div>
+  <div class='ordertime'>
+  <select class='ordertimelist form-control' name='attributes[Time]'>
+  </select>
+    <input type="hidden" name="attributes[Date]" class='orderdate' value=''>
+  </div>
+</div>
+
+<style>
+  .ordertimelist{
+ 	 display:none;
+  }
+  .selecttimeslot{
+  	margin:10px 0px;
+  }
+  .errormsg{
+  	color:red;
+    margin:10px 0px;
+  }
+</style>

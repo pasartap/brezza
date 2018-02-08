@@ -394,12 +394,18 @@
               data: {shop_name: "1",tag:tag},
               dataType: "json",
               success: function(response) {
+                console.log(response);
                  var total = response.data.length;
                 if(response.result == "true"){ 
                   var storelist = '';
-                  var timeslot = 'Next available slot:7AM - 8AM';
+                 if(response.slot != 'No'){
+                  var timeslot = 'Next available slot '+response.slot;
+                  $(".changestore").find("span").html(timeslot);
+                }else{
+                  var timeslot  = '';
+                }
                  $.each(response.data, function(i, item) {
-                  storelist += '<li data-store='+item.city+'><strong>'+item.city+'</strong><br><span>'+timeslot+'</span></li>'; 
+                  storelist += '<li data-store='+item.market+'><strong>'+item.market+'</strong><br><span>'+timeslot+'</span></li>'; 
                  });
                  //console.log(storelist);
                  $(".mannualstore").html(storelist);
@@ -410,9 +416,14 @@
                   var msgnostore = 'Sorry, PasarTap does not provide service at this location. Please select a market below to continue browsing our products.';
                  $(".mannualstore").before("<p class='nostoremsg'><strong>"+msgnostore+"</strong></p>");
                   var storelist = '';
-                  var timeslot = 'Next available slot:7AM - 8AM';
+                   if(response.slot != 'No'){
+                  var timeslot = 'Next available slot '+response.slot;
+                  $(".changestore").find("span").html(timeslot);
+                }else{
+                  var timeslot  = '';
+                }
                  $.each(response.data, function(i, item) {
-                  storelist += '<li data-store='+item.city+'><strong>'+item.city+'</strong><br><span>'+timeslot+'</span></li>'; 
+                  storelist += '<li data-store='+item.market+'><strong>'+item.market+'</strong><br><span>'+timeslot+'</span></li>'; 
                  });
                  //console.log(storelist);
                  $(".mannualstore").html(storelist);
@@ -442,7 +453,7 @@
             	var timeslot  = '';
             }
            $.each(response.data, function(i, item) {
-            storelist += '<li data-store='+item.city+'><strong>'+item.city+'</strong><br><span>'+timeslot+'</span></li>'; 
+            storelist += '<li data-store='+item.market+'><strong>'+item.market+'</strong><br><span>'+timeslot+'</span></li>'; 
            });
            //console.log(storelist);
            $(".mannualstore").html(storelist);

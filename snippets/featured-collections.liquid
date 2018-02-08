@@ -14,7 +14,7 @@
     {% assign collection_count = collections[coll].all_products_count | times: 1 %}
 
     {% if coll != blank and collection_count != nil and collection_count > 0 %}  
-      <section class="bestsell-pro   ">
+      <section class="bestsell-pro">
         <div class="container"> 
           <div class="block-title">
             <h2><a href= "{{ coll_relative_link }}">{{ collections[coll].title }} </a></h2>

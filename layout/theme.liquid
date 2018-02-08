@@ -3,9 +3,9 @@
 <!--[if IE 7]><html class="no-js ie7 oldie" lang="en"><![endif]-->
 <!--[if IE 8]><html class="no-js ie8 oldie" lang="en"><![endif]-->
 <!--[if gt IE 8]><!--> 
-<html class="no-js" lang="en">  
-<!--<![endif]-->   
-  
+<html class="no-js" lang="en">   
+<!--<![endif]-->    
+   
 <head>
   <meta charset="utf-8"> 
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -148,22 +148,7 @@
   
 
   
- {% if template != 'customers/login' %} 
-  {% if template != 'product' %}
-  {% if template != 'search' %}
-  <script type="text/javascript">
-  $(document).ready(function(){ 
-    var market = GetURLParameter('market');
-    var url      = window.location.href; 
-    if(market == undefined && $.cookie('PasarStoreName') != undefined){
-      window.location.href = url+"?market="+$.cookie('PasarStoreName');      
-    }
-  });
-  </script>
-  {% endif %}
-  {% endif %}
-  {% endif %}
-  
+ 
 <body id="{{ page_title | handle }}" class="{% if customer %}customer-logged-in {% endif %}template-{{ template | replace: '.', ' ' | truncatewords: 1, '' | handle }}" >
   <div class="loading">
   <div class="spinner">
@@ -437,7 +422,25 @@
  {% include 'sweettooth-tab-widget' %}
 
 </body>
-
+  <script>
+  $(window).load(function() {
+    $( ".item " ).each(function( index ) {
+      if(!$(this).hasClass($.cookie('PasarStoreName'))){
+      	$(this).parent(".product-item").remove();
+        $(this).remove();
+      }
+    });
+ 	$( ".product-item " ).each(function( index ) {
+      if(!$(this).hasClass($.cookie('PasarStoreName'))){
+      	$(this).remove();
+      }
+    });
+    
+    InitCarousal();
+    
+  });
+  
+  </script>
 </html>
 
 {% include 'sca-quick-view-template' %}

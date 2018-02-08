@@ -2,7 +2,7 @@
   <div class="container {{keyAndValue}}" >
       <div class="col-sm-6">
         {{ request.myvar }}
-          <div class="logo"> 
+          <div class="logo">  
               {% if settings.use_logo %} <a id="logo" href="/"> {{ 'logo_189x48.png' | asset_url | img_tag: shop.name }} </a> {% else %} <a class="logo-title" href="/">{{ settings.logo_text }}</a> {% else %}
                 <h1 id="site-title"{% if settings.use_logo %} class="hidden"{% endif %}>
                 <a class="trs_color" href="/">{{ shop.name }}</a>
@@ -30,16 +30,16 @@
                   <p id='latitudeAndLongitude'></p>
                   <p id='address'></p>
                   <ul class="nav nav-tabs">
-                   <li class="active"><a data-toggle="tab" href="#home">Supermarkets</a></li>
+                   <li class="active"><a data-toggle="tab" href="#home">Market</a></li>
                   </ul>
                   <div class="tab-content">
                     <div id="home" class="tab-pane fade in active">
-                      <h3>Select store to start shopping!</h3>
+                      <h3>Select Market to start shopping!</h3>
                       <ul class="mannualstore">
                       </ul>
                     </div>
                     <div id="menu1" class="tab-pane fade">
-                      <h3>Select store to start shopping!</h3>
+                      <h3>Select Market to start shopping!</h3>
                       <p>Some content in menu 1.</p>
                     </div>
                   </div>
@@ -50,6 +50,15 @@
   </div>
 </div>
 <style type="text/css">
+  .changestore .fa.fa-map-marker {
+	float: left;
+	position: absolute;
+	left: 10px;
+	top: 30%;
+	font-size: 20px;
+	z-index: 999;
+	color: #50a746;
+}
 .landingpage {
   background: url("https://cdn.shopify.com/s/files/1/2168/1709/t/20/assets/HR4C5125-12.jpg?5676170823052302675");
   position: fixed;
@@ -79,7 +88,7 @@
 }
 #autocomplete {
   float: left;
-  max-width: 75%;
+  max-width: 84%;
   height: 40px;
   position: relative;
   padding-left: 30px;
@@ -157,13 +166,17 @@
   .changestore {
     float: left;
     margin-top: 10px;
-    width: 170px;
+    width: 210px;
     text-align: center;
     border: 2px solid #e0e0e0;
     border-radius: 6px;
     height: 44px;
     cursor: pointer;
     padding: 3px;
+    position:relative; 
+}
+  .changestore span {
+    font-size: 11px;
 }
   .changestore h3 {
     line-height: 1.4;
@@ -330,9 +343,10 @@
     var appurl = 'https://www.shopifyappexperts.com/localdelivery/'; 
     showLoading()
     $(document).on("click",".mannualstore li",function(){
+      var url      = window.location.href;
       if(!$(this).parent("ul").hasClass("withemptycart")){
         $.cookie("PasarStoreName", $(this).attr("data-store"));
-         window.location.href="https://pasartap-dev.myshopify.com/?market="+$(this).attr("data-store");
+         window.location.href = url;
       }
     });    
     $(document).on("click",".getlocation",function(){
@@ -421,7 +435,12 @@
         success: function(response) {
           if(response.result == "true"){ 
             var storelist = '';
-            var timeslot = 'Next available slot '+response.slot;
+            if(response.slot != 'No'){
+            	var timeslot = 'Next available slot '+response.slot;
+              $(".changestore").find("span").html(timeslot);
+            }else{
+            	var timeslot  = '';
+            }
            $.each(response.data, function(i, item) {
             storelist += '<li data-store='+item.city+'><strong>'+item.city+'</strong><br><span>'+timeslot+'</span></li>'; 
            });

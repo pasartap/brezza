@@ -1,17 +1,4 @@
-{%- capture contentForQuerystring -%}{{ content_for_header }}{%- endcapture -%}
-  {%- assign pageUrl = contentForQuerystring | split:'"pageurl":"' | last | split:'"' | first | split:'.myshopify.com' | last |
-     replace:'\/','/' | 
-     replace:'%20',' ' | 
-     replace:'\u0026','&'
-  -%}
-  {%- for i in (1..1) -%}
-    {%- unless pageUrl contains "?" -%}{% break %}{%- endunless -%}
-    {%- assign pageQuerystring = pageUrl | split:'?' | last -%}
-    {%- assign parts = pageQuerystring | split:'&' -%}
-    {%- for part in parts -%}
-      {% assign keyAndValue = part | split:'market=' %} 
-    {%- endfor -%}
-  {%- endfor -%}
+
 <header id="header">
   <div class="header-container">
     <div class="header-top">
@@ -118,8 +105,9 @@
         </div>
         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 mgk-top-cart tes"> 
           <div class="changestore">
+            <i class="fa fa-map-marker" aria-hidden="true"></i>
             <h3>{{keyAndValue}}</h3>
-           Change Store <i class="fa fa-angle-down" aria-hidden="true"></i>
+            <span>Change Store  <i class="fa fa-angle-down" aria-hidden="true"></i></span>
           </div>
           {% if settings.show_sticky_menu %}
             <div class="top-cart-contain pull-right"> 

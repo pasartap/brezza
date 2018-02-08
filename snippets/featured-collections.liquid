@@ -5,20 +5,7 @@
 {% if settings.homepage_featured_collections != blank %}
   {% assign featured_collections = settings.homepage_featured_collections | split:"," %}
 {% endif %}
-{%- capture contentForQuerystring -%}{{ content_for_header }}{%- endcapture -%}
-  {%- assign pageUrl = contentForQuerystring | split:'"pageurl":"' | last | split:'"' | first | split:'.myshopify.com' | last |
-     replace:'\/','/' | 
-     replace:'%20',' ' | 
-     replace:'\u0026','&'
-  -%}
-  {%- for i in (1..1) -%}
-    {%- unless pageUrl contains "?" -%}{% break %}{%- endunless -%}
-    {%- assign pageQuerystring = pageUrl | split:'?' | last -%}
-    {%- assign parts = pageQuerystring | split:'&' -%}
-    {%- for part in parts -%}
-      {% assign keyAndValue = part | split:'market=' %}
-    {%- endfor -%}
-  {%- endfor -%}
+
 {% if settings.display_featured_collections == true and featured_collections.size > 0 %}
   <!-- Featured Collections Slider -->
   {% for featured_collection in featured_collections %}
@@ -27,25 +14,20 @@
     {% assign collection_count = collections[coll].all_products_count | times: 1 %}
 
     {% if coll != blank and collection_count != nil and collection_count > 0 %}  
-      <section class="bestsell-pro  {{keyAndValue}} ">
+      <section class="bestsell-pro   ">
         <div class="container"> 
           <div class="block-title">
             <h2><a href= "{{ coll_relative_link }}">{{ collections[coll].title }} </a></h2>
           </div>
-          <div class="slider-items-products">
+          <div class="slider-items-products"> 
             <div class="bestsell-block">
               <div id="featured-slider_{{ coll_num }}" class="product-flexslider hidden-buttons">
                 <div class="slider-items slider-width-col4 products-grid block-content"> 
                   <!-- Item --> 
-                  {% for product in collections[coll].products limit:15 %}
-                   {% capture currenttag %}{{keyAndValue}}{% endcapture %}	
-                    {% for tag in product.tags %}
-                      {% if tag == currenttag %}
-                         <div class="item {{currenttag}}">                      
+                  {% for product in collections[coll].products limit:1000 %}                      
+                  	<div class="item {% for tag in product.tags %}  {{tag}} {% endfor %} ">                      
                       {% include 'product-grid-item' with 'listing_cols' with 'image_size' %} </div>
-                      {% endif %}
-                  	 {% endfor %} 
-                    
+                     
                   {% endfor %} 
                 </div>
               </div>
@@ -60,11 +42,11 @@
 
   <script type="text/javascript">
     //<![CDATA[
-    jQuery(document).ready(function(cash) {
-
-    for (i = 1; i <= {{ coll_num }}; i++) { 
+    function InitCarousal() {
+      for (i = 1; i <= {{ coll_num }}; i++) { 
       index = "#featured-slider_" + i;
       jQuery(index + " .slider-items").owlCarousel({
+      loop:true,
       items: 5, //10 items above 1000px browser width
       itemsDesktop: [1024, 4], //4 items between 1024px and 901px
       itemsDesktopSmall: [900, 3], // 4 items betweem 900px and 601px
@@ -109,8 +91,7 @@
           },
       });
     }
-
-    }); 
+    }
     //]]>
   </script>  
 

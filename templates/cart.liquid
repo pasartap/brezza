@@ -1,27 +1,4 @@
-<script type="text/javascript">
-  $(document).ready(function(){ 
-    var market = GetURLParameter('market');
-    var url      = window.location.href; 
-    if(market == undefined){
-      window.location.href = url+"?market="+$.cookie('PasarStoreName');
-      //window.location.href = url+"?market="+{{keyAndValue}};
-    }  	
-  });
-  </script>
-{%- capture contentForQuerystring -%}{{ content_for_header }}{%- endcapture -%}
-  {%- assign pageUrl = contentForQuerystring | split:'"pageurl":"' | last | split:'"' | first | split:'.myshopify.com' | last |
-     replace:'\/','/' | 
-     replace:'%20',' ' | 
-     replace:'\u0026','&'
-  -%}
-  {%- for i in (1..1) -%}
-    {%- unless pageUrl contains "?" -%}{% break %}{%- endunless -%}
-    {%- assign pageQuerystring = pageUrl | split:'?' | last -%}
-    {%- assign parts = pageQuerystring | split:'&' -%}
-    {%- for part in parts -%}
-      {% assign keyAndValue = part | split:'market=' %}
-    {%- endfor -%}
-  {%- endfor -%}
+
 <div class="cart-scope">
     <div class="page_header">
         <h1 class="page_title">Shopping Cart</h1>
@@ -118,7 +95,7 @@
             <div class="cart_instructions">
                 <h3>Add instructions</h3>
                 <textarea class="form-control" name="note">{{ cart.note }}</textarea>
-              <input type="hidden" name="attributes[Market]" value="{{keyAndValue}}">
+              <input type="hidden" name="attributes[Market]" value="">
             </div>
    
         </form>

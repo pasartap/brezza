@@ -25,13 +25,14 @@ Example: the h2 element should have the same size and color in:
   </div>
   
 </div>
+
 <div class='errormsg'>
 <h1>The page is not accessible.</h1>
 </div>
 
 <script>
   $(document).ready(function(){
-    if($.cookie('PasarStoreName') != 'Klang'){
+    if($.cookie('PasarStoreName') != 'Chow Kit'){
     	$(".page-scope").remove();
     }else{
     	$(".errormsg").remove();

@@ -7,7 +7,7 @@
     {% break %}
   {% endif %}
 {% endfor %}
-
+<div class="producttags {% for tag in product.tags %} {{tag}} {% endfor %} ">
 <div itemscope itemtype="http://schema.org/Product" class="product-scope">
   <meta itemprop="url" content="{{ shop.url }}{{ product.url }}" />
   <meta itemprop="image" content="{{ product.featured_image.src | product_img_url: 'grande' }}" /> 
@@ -41,7 +41,7 @@
             {% endif %} 
           {% endif %}
           
-          <div data-id="{{ product.id }}" class="product-{{ product.id }} product-item">
+          <div data-id="{{ product.id }}" class="product-{{ product.id }} product-item ">
           <div class="col-sm-6 col-lg-5 col-xs-6 product-image">
             <div class="product-photo-container" id="productPhoto">
               {% assign featured_image = product.selected_or_first_available_variant.featured_image | default: product.featured_image %}
@@ -277,6 +277,8 @@
     {% endcomment %}
   </div>
 </div>
+</div>
+<div class="prodcuterrormsg">The page is not accessible.</div>
 {% comment %}
 {% include 'snippet-related-products' %}
 
@@ -565,6 +567,21 @@ Place this in your product.liquid template, at the bottom.
         clearInterval(myVar);
     }, 100);
   });  
+    
+   
+   
+   
 </script>
 {% endcomment %}
 {% endif %}
+<script>
+$(window).load(function() {
+ if(! $(".producttags").hasClass($.cookie('PasarStoreName'))){
+	$(".producttags").remove();
+ }else{
+    $(".prodcuterrormsg").remove();
+ }
+  
+});
+
+</script>

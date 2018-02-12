@@ -7,32 +7,9 @@
 {% if settings.homepage_featured_collections != blank %}
   {% assign featured_collections = settings.homepage_featured_collections | split:"," %}
 {% endif %}
-{%- capture contentForQuerystring -%}{{ content_for_header }}{%- endcapture -%}
-  {%- assign pageUrl = contentForQuerystring | split:'"pageurl":"' | last | split:'"' | first | split:'.myshopify.com' | last |
-     replace:'\/','/' | 
-     replace:'%20',' ' | 
-     replace:'\u0026','&'
-  -%}
-  {%- for i in (1..1) -%}
-    {%- unless pageUrl contains "?" -%}{% break %}{%- endunless -%}
-    {%- assign pageQuerystring = pageUrl | split:'?' | last -%}
-    {%- assign parts = pageQuerystring | split:'&' -%}
-    {%- for part in parts -%}
-      {% assign keyAndValue = part | split:'market=' %}
-    {%- endfor -%}
-  {%- endfor -%}
 
-<script type="text/javascript">
-  $(document).ready(function(){ 
-    var market = GetURLParameter('market');
-    var url      = window.location.href; 
-    if(market == undefined){
-      window.location.href = url+"?market="+$.cookie('PasarStoreName');
-      //window.location.href = url+"?market="+{{keyAndValue}};
-    }
-  	
-  });
-  </script>
+
+
 <div class="grid grid-border">
   <div class="grid-item{% if has_sidebar %} large--four-fifths grid-border--left{% endif %}">
     {% comment %}
@@ -67,7 +44,7 @@
           {% assign grid_item_width = 'large--one-fifth medium--one-third small--one-half' %}
         {% endif %}
         {% include 'product-grid-item' %}
-      {% else %}
+      {% else %} 
         <div class="grid-item">
           <p>{{ 'collections.general.no_matches' | t }}</p>
         </div>

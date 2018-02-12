@@ -43,6 +43,7 @@ $(function() {
                     } else {
                         // If we have results.
                         var count = 0;
+                      var newcount = 0;
                         $.each(data.results, function(index, item) {
 
                             var show = false;
@@ -60,7 +61,7 @@ $(function() {
                                     count++;
                                 }
                             {% endif %}
-
+								
                             if (show && index < 5) {
                                 var price = Shopify.formatMoney(item.price, window.formatMoney);
                                 var link = $('<a></a>').attr('href', item.url);
@@ -87,13 +88,24 @@ $(function() {
                                     var reg = new RegExp('('+ term + ')', 'gi');
                                     item.title = item.title.replace(reg, '<span class="search-highlight">$1</span>');
                                 }
+                              	var tagsall = '';
+                              	
+                              	$.each(item.tags,function(i,v){
+                                  if(v == $.cookie("PasarStoreName").toLowerCase()){
+                                    
+                                	 link.append('<span class="thumbnail"><img src="' + item.thumbnail + '" /></span>');
+                                     link.append('<span class="title">' + item.title + '</span>');
+                                     link.append('<span style="width:auto;float:right;padding-right:5px;font-weight:bold">' + price + '</span>');
+                                     link.wrap('<li class='+tagsall+'></li>');
+                                     resultsList.append(link.parent()); 
+                                    newcount++;
+                                  }else{
+                                  	console.log(v+' 2 '+$.cookie("PasarStoreName"));
+                                  }
+                              	
+                              	});
                                 
-                                link.append('<span class="thumbnail"><img src="' + item.thumbnail + '" /></span>');
-                                link.append('<span class="title">' + item.title + '</span>');
-                                link.append('<span style="width:auto;float:right;padding-right:5px;font-weight:bold">' + price + '</span>');
-                                link.wrap('<li></li>');
-
-                                resultsList.append(link.parent());
+                               
                             }                           
                         });                       
 
@@ -104,7 +116,7 @@ $(function() {
                         // The Ajax request will return at the most 5 results.
                         // If there are more than 5, let's link to the search results page.
                         if (count > 5) {
-                            resultsList.append('<li><span class="title"><a href="' + searchURL + '">See all results (' + data.results_count + ')</a></span></li>');
+                            resultsList.append('<li><span class="title"><a href="' + searchURL + '">See all results (' + newcount + ')</a></span></li>');
                         }                       
 
                         resultsList.fadeIn(200);

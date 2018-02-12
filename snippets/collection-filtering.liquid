@@ -1,18 +1,23 @@
-<div class="form-horizontal">
+
+<div class="form-horizontal" >
   <label for="filterBy" class="small--hide">Filter By</label>
   <select name="filterBy" class="coll-filter">
     <option value="">All</option>
     {% for tag in collection.all_tags %}
       {% unless tag == 'Freebie' or tag == 'Max-1' or tag == 'Wholesale' %}
+    {% if tag != 'Bayan Baru' %}
         {% if current_tags contains tag %}
           <option value="{{ tag | handle }}" selected>{{ tag }}</option>
         {% else %}
           <option value="{{ tag | handle }}">{{ tag }}</option>
       {% endif %}
+   
+     {% endif %}
       {% endunless %}
     {% endfor %}
   </select>
 </div>
+
 <script>
   /* Product Tag Filters - Good for any number of filters on any type of collection page.
      Give you product tag filter select element a class of coll-filter.

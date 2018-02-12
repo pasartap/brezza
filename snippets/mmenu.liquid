@@ -55,7 +55,7 @@
                                         <li><a href="{{ childlink.url }}"><span>{{ childlink.title }}</span></a>
                                             {% if linklists[childlink.handle].links.size > 0 %}
                                                 <ul>
-                                                    {% for childlink2 in linklists.[childlink.handle].links %}
+                                                    {% for childlink2 in linklists.childlink.handle.links %}
                                                         <li>
                                                             <a href="{{ childlink2.url }}" ><span>{{ childlink2.title }}</span></a>
                                                         </li>

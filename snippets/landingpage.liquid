@@ -1,8 +1,8 @@
-<div id="wrapper" > 
-  <div class="container {{keyAndValue}}" >
+<div id="wrapper" class="landingpagediv"> 
+  <div class="container" >
       <div class="col-sm-6">
         {{ request.myvar }}
-          <div class="logo"> 
+          <div class="logo">  
               {% if settings.use_logo %} <a id="logo" href="/"> {{ 'logo_189x48.png' | asset_url | img_tag: shop.name }} </a> {% else %} <a class="logo-title" href="/">{{ settings.logo_text }}</a> {% else %}
                 <h1 id="site-title"{% if settings.use_logo %} class="hidden"{% endif %}>
                 <a class="trs_color" href="/">{{ shop.name }}</a>
@@ -23,23 +23,26 @@
                   <p class="currentlocation">You are currently shopping in <span class="locationname"></span></p>
                   <div id="locationField">
                       <i class="fa fa-map-marker" aria-hidden="true"></i>
-                      <input id="autocomplete" placeholder="Enter your address" onFocus="geolocate()" type="text" class="form-control autocomplete" />
-                      <button class="btn btn-success searchstore" id="getallprdt"> Use address</button>
+                         <div id="locationField">
+                        <input id="autocomplete" placeholder="Enter your address" onFocus="geolocate()" type="text"  class="form-control"></input>
+                      
+                      <button class="btn btn-success " id="getallprdt"> Use address</button>
+                      </div>
                   </div>
                   <h4 class="chooselocation"> Or use <i class="fa fa-map-marker" aria-hidden="true"></i> <a href="javascript:" class="getlocation">current location</a></h4>
                   <p id='latitudeAndLongitude'></p>
                   <p id='address'></p>
                   <ul class="nav nav-tabs">
-                   <li class="active"><a data-toggle="tab" href="#home">Supermarkets</a></li>
+                   <li class="active"><a data-toggle="tab" href="#home">Market</a></li>
                   </ul>
                   <div class="tab-content">
                     <div id="home" class="tab-pane fade in active">
-                      <h3>Select store to start shopping!</h3>
+                      <h3>Select Market to start shopping!</h3>
                       <ul class="mannualstore">
                       </ul>
                     </div>
                     <div id="menu1" class="tab-pane fade">
-                      <h3>Select store to start shopping!</h3>
+                      <h3>Select Market to start shopping!</h3>
                       <p>Some content in menu 1.</p>
                     </div>
                   </div>
@@ -50,6 +53,15 @@
   </div>
 </div>
 <style type="text/css">
+.changestore .fa.fa-map-marker {
+  float: left;
+  position: absolute;
+  left: 10px;
+  top: 30%;
+  font-size: 20px;
+  z-index: 999;
+  color: #50a746;
+}
 .landingpage {
   background: url("https://cdn.shopify.com/s/files/1/2168/1709/t/20/assets/HR4C5125-12.jpg?5676170823052302675");
   position: fixed;
@@ -79,7 +91,7 @@
 }
 #autocomplete {
   float: left;
-  max-width: 75%;
+  max-width: 84%;
   height: 40px;
   position: relative;
   padding-left: 30px;
@@ -129,210 +141,226 @@
   line-height: 1.5;
   margin-bottom: 10px;
 }
-  .mannualstore span {
+.mannualstore span {
   line-height: 2px !important;
   font-size: 11px;
 }
-  .mannualstore {
+.mannualstore {
   padding: 0px;
   list-style: none;
   margin-top: 10px;
   margin-bottom: 10px;
 }
-  .pac-container{
-    z-index:99999;
-  }
-  .hideall{
-    display:none;
-  }
-  .showall{
-    display:block !important;
-  }
-  .sitecontainers,#footer{
-    display:none;
-  }
-  #getallprdt{
-    font-size: 14px;
-  }
-  .changestore {
-    float: left;
-    margin-top: 10px;
-    width: 170px;
-    text-align: center;
-    border: 2px solid #e0e0e0;
-    border-radius: 6px;
-    height: 44px;
-    cursor: pointer;
-    padding: 3px;
+.pac-container{
+  z-index:99999;
 }
-  .changestore h3 {
-    line-height: 1.4;
-}
-  #myModal .landingtitle , #myModal .landingsubtitle{
+.hideall{
   display:none;
-  }
-  #myModal .customfloat{
-  float:none;
-  }
-  .sticky-topbar .changestore{
-    
-    background: #fff;
-  }
-  footer{
-  float:left;
-  }
+}
+.showall{
+  display:block !important;
+}
+.sitecontainers,#footer{
+  display:none;
+}
+#getallprdt{
+  font-size: 14px;
+}
+.changestore {
+	float: left;
+	margin-top: 10px;
+	width: 210px;
+	text-align: center;
+	border: 2px solid #e0e0e0;
+	border-radius: 6px;
+	height: 44px;
+	cursor: pointer;
+	padding: 3px;
+	position:relative; 
+}
+.changestore span {
+	font-size: 11px;
+}
+.changestore h3 {
+	line-height: 1.4;
+	font-size: 14px;
+	font-weight: bold;
+	margin: 0px;
+}
+#myModal .landingtitle , #myModal .landingsubtitle{
+	display:none;
+}
+#myModal .customfloat{
+	float:none;
+}
+.sticky-topbar .changestore{
+	background: #fff;
+}
+footer{
+	float:left;
+}
+  
   @media screen and (max-width: 479px){
-  	 .mm-page.mm-slideout.padding0high {
-	    margin-top: 0px !important;
-	}
-	.landingtitle {
-	    font-size: 23px;
-	}
-	.landingsubtitle {
-	    font-size: 17px;
-	}
-	#autocomplete {
-	    max-width: 60%;
-	}
-	.mannualstore li {
-	    max-width: 48%;
-	    width: 48%;
-	}
-	.formlocation {
-	    height: 350px;
-	    overflow: scroll;
-	    padding: 4% 4%;
-	}
-	.mobilepadding0{
-		padding: 0px;
-	}
-	#logo{
-	    width: 100%;
+     .mm-page.mm-slideout.padding0high {
+      margin-top: 0px !important;
+  }
+  .landingtitle {
+      font-size: 23px;
+  }
+  .landingsubtitle {
+      font-size: 17px;
+  }
+  #autocomplete {
+      max-width: 57%;
+  }
+  .mannualstore li {
+      max-width: 48%;
+      width: 48%;
+  }
+  .formlocation {
+      height: 350px;
+      overflow: scroll;
+      padding: 4% 4%;
+  }
+  .mobilepadding0{
+    padding: 0px;
+  }
+  #logo{
+      width: 100%;
         margin-top: 10px;
-	}
-	.mobilemenustore {
-		font-size: 20px;
-		color: #fff;
-		max-width: 30px;
-		float: right;
-		margin-top: 12px;
-		width: 30px !important;
-		display: inline-block;
-		cursor: pointer;
-	}
-	#myModal .modal-body {
-		padding: 5px;
-	}
-	#sticky-mmenu {
-		z-index: 999;
-	}
+  }
+  .mobilemenustore {
+    font-size: 20px;
+    color: #fff;
+    max-width: 30px;
+    float: right;
+    margin-top: 12px;
+    width: 30px !important;
+    display: inline-block;
+    cursor: pointer;
+  }
+  #myModal .modal-body {
+    padding: 5px;
+  }
+  #sticky-mmenu {
+    z-index: 999;
+  }
+    #myModal{
+    z-index:9999 !important;
+    }
   }
   @media screen and (min-width: 480px) and (max-width: 767px){
   .mm-page.mm-slideout.padding0high {
-	    margin-top: 0px !important;
-	}
-	.landingtitle {
-	    font-size: 23px;
-	}
-	.landingsubtitle {
-	    font-size: 17px;
-	}
-	#autocomplete {
-	    max-width: 60%;
-	}
-	.mannualstore li {
-	    max-width: 48%;
-	    width: 48%;
-	}
-	.formlocation {
-	    height: 230px;
-	    overflow: scroll;
-	    padding: 2% 3%;
-	}
-	.mobilepadding0{
-		padding: 0px;
-	}
-	#logo{
-	    width: 100%;
+      margin-top: 0px !important;
+  }
+  .landingtitle {
+      font-size: 23px;
+  }
+  .landingsubtitle {
+      font-size: 17px;
+  }
+  #autocomplete {
+      max-width: 60%;
+  }
+  .mannualstore li {
+      max-width: 48%;
+      width: 48%;
+  }
+  .formlocation {
+      height: 230px;
+      overflow: scroll;
+      padding: 2% 3%;
+  }
+  .mobilepadding0{
+    padding: 0px;
+  }
+  #logo{
+      width: 100%;
         margin-top: 10px;
-	}
-	.mobilemenustore {
-		font-size: 20px;
-		color: #fff;
-		max-width: 30px;
-		float: right;
-		margin-top: 12px;
-		width: 30px !important;
-		display: inline-block;
-		cursor: pointer;
-	}
-	#myModal .modal-body {
-		padding: 5px;
-	}
-	#sticky-mmenu {
-		z-index: 999;
-	}
-	h1.landingtitle br {
-	    display: none;
-	}
-	.landingsubtitle {
-	    margin: 5px 0px;
-	}
-	#logo {
-	    margin-top: 0px;
-	}
+  }
+  .mobilemenustore {
+    font-size: 20px;
+    color: #fff;
+    max-width: 30px;
+    float: right;
+    margin-top: 12px;
+    width: 30px !important;
+    display: inline-block;
+    cursor: pointer;
+  }
+  #myModal .modal-body {
+    padding: 5px;
+  }
+  #sticky-mmenu {
+    z-index: 999;
+  }
+  h1.landingtitle br {
+      display: none;
+  }
+  .landingsubtitle {
+      margin: 5px 0px;
+  }
+  #logo {
+      margin-top: 0px;
+  }
   }
   @media only screen and (min-width: 768px) and (max-width: 959px) {
-	  h1.landingtitle br {
-	    display: block;
-	}
-	.landingsubtitle {
-	    margin: 10px 0px;
-	}
-	.changestore {
+    h1.landingtitle br {
+      display: block;
+  }
+  .landingsubtitle {
+      margin: 10px 0px;
+  }
+  .changestore {
         width: 100px;
-    	font-size: 11px;
-	}
-	.top-header{
-		width: 128px;	
-	}
-	.changestore h3 {
-	    line-height: 1.4;
-	    font-size: 12px;
-	}
-	.tile_cart{
-		padding: 0px 0px 14px;
-	}
-	.tile_cart a{
-	    padding: 0 2px 0 0;
-	}
-	.tile_cart a .fa-shopping-cart {
-	    width: 25px;
-	    float: left;
-	}
-	.tile_cart a span {
-	    float: left;
-	    height: 30px;
-	    line-height: 3.4;
-	}
-	.tile_cart a span span.count{
-		line-height: 40px;
-	}
-	.tile_cart a span.money{
-	    margin-left: 4px;
-	}
+      font-size: 11px;
+  }
+  .top-header{
+    width: 128px; 
+  }
+  .changestore h3 {
+      line-height: 1.4;
+      font-size: 12px;
+  }
+  .tile_cart{
+    padding: 0px 0px 14px;
+  }
+  .tile_cart a{
+      padding: 0 2px 0 0;
+  }
+  .tile_cart a .fa-shopping-cart {
+      width: 25px;
+      float: left;
+  }
+  .tile_cart a span {
+      float: left;
+      height: 30px;
+      line-height: 3.4;
+  }
+  .tile_cart a span span.count{
+    line-height: 40px;
+  }
+  .tile_cart a span.money{
+      margin-left: 4px;
+  }
   }
 
  
 </style>
 <script type="text/javascript">
   $(document).ready(function(){
+    
+    if($.cookie("PasarStoreName")) {
+      $(".landingpagediv").remove();  
+    }  
+    
     var appurl = 'https://www.shopifyappexperts.com/localdelivery/'; 
     showLoading()
     $(document).on("click",".mannualstore li",function(){
+      var url      = window.location.href;
       if(!$(this).parent("ul").hasClass("withemptycart")){
-        $.cookie("PasarStoreName", $(this).attr("data-store"));
-         window.location.href="https://pasartap-dev.myshopify.com/?market="+$(this).attr("data-store");
+        $.cookie("PasarStoreName", $(this).text());
+         window.location.href = url;
       }
     });    
     $(document).on("click",".getlocation",function(){
@@ -370,22 +398,31 @@
               }      
         } //showPosition
       });
-       $(document).on("click","#getallprdt",function(){
+    
+      $(document).on("click","#getallprdt",function(){
         $(".nostoremsg").remove();
         var tag = $("#autocomplete").val();
+        var postcode = $("#postal_code").val();
         if(tag != ''){
            $.ajax({
               url: appurl+"ajax_store.php",
               type: "POST",
-              data: {shop_name: "1",tag:tag},
+             data: {shop_name: "1",tag:tag,postcode:postcode},
               dataType: "json",
               success: function(response) {
+                console.log(response);
+
                  var total = response.data.length;
                 if(response.result == "true"){ 
                   var storelist = '';
-                  var timeslot = 'Next available slot:7AM - 8AM';
+                 if(response.slot != 'No'){
+                  var timeslot = 'Next available slot '+response.slot;
+                  $(".changestore").find("span").html(timeslot);
+                }else{
+                  var timeslot  = '';
+                }
                  $.each(response.data, function(i, item) {
-                  storelist += '<li data-store='+item.city+'><strong>'+item.city+'</strong><br><span>'+timeslot+'</span></li>'; 
+                  storelist += '<li ><strong>'+item.market+'</strong><br><span>'+timeslot+'</span></li>'; 
                  });
                  //console.log(storelist);
                  $(".mannualstore").html(storelist);
@@ -396,9 +433,14 @@
                   var msgnostore = 'Sorry, PasarTap does not provide service at this location. Please select a market below to continue browsing our products.';
                  $(".mannualstore").before("<p class='nostoremsg'><strong>"+msgnostore+"</strong></p>");
                   var storelist = '';
-                  var timeslot = 'Next available slot:7AM - 8AM';
+                   if(response.slot != 'No'){
+                  var timeslot = 'Next available slot '+response.slot;
+                  $(".changestore").find("span").html(timeslot);
+                }else{
+                  var timeslot  = '';
+                }
                  $.each(response.data, function(i, item) {
-                  storelist += '<li data-store='+item.city+'><strong>'+item.city+'</strong><br><span>'+timeslot+'</span></li>'; 
+                  storelist += '<li ><strong>'+item.market+'</strong><br><span>'+timeslot+'</span></li>'; 
                  });
                  //console.log(storelist);
                  $(".mannualstore").html(storelist);
@@ -421,9 +463,20 @@
         success: function(response) {
           if(response.result == "true"){ 
             var storelist = '';
-            var timeslot = 'Next available slot '+response.slot;
+            if(response.slot != 'No'){
+              var timeslot = 'Next available slot '+response.slot;
+              $(".changestore").find("span").html(timeslot);
+            }else{
+              var timeslot  = '';
+            }
            $.each(response.data, function(i, item) {
-            storelist += '<li data-store='+item.city+'><strong>'+item.city+'</strong><br><span>'+timeslot+'</span></li>'; 
+            storelist += '<li ><strong>'+item.market+'</strong><br><span>'+timeslot+'</span></li>'; 
+            $(".coll-filter option").each(function() {
+              if(this.text == item.market){
+                $(this).remove();
+              }
+               console.log(this.text +"=="+ item.market); 
+            });
            });
            //console.log(storelist);
            $(".mannualstore").html(storelist);
@@ -455,63 +508,6 @@
   function hideLoading() {
     $(".loading").hide();
   }
-   var placeSearch, autocomplete;
-    var componentForm = {
-      street_number: 'short_name',
-      route: 'long_name',
-      locality: 'long_name',
-      administrative_area_level_1: 'short_name',
-      country: 'long_name',
-      postal_code: 'short_name'
-    };
-    function initAutocomplete() {
-       var options = {
-        types: ['(cities)']
-       };
-
-      autocomplete = new google.maps.places.Autocomplete(
-          (document.getElementById('autocomplete')),
-          {types: ['geocode']},options);
-      autocomplete.addListener('place_changed', fillInAddress);
-    }
-    function fillInAddress() {
-      var place = autocomplete.getPlace();
-      for (var component in componentForm) {
-        document.getElementById(component).value = '';
-        document.getElementById(component).disabled = false;
-      }
-      for (var i = 0; i < place.address_components.length; i++) {
-        var addressType = place.address_components[i].types[0];
-        if (componentForm[addressType]) {
-          var val = place.address_components[i][componentForm[addressType]];
-          document.getElementById(addressType).value = val;
-        }
-      }
-    }
-    function geolocate() {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function(position) {
-          var geolocation = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude
-          };
-          var circle = new google.maps.Circle({
-            center: geolocation,
-            radius: position.coords.accuracy
-          });
-          autocomplete.setBounds(circle.getBounds());
-        });
-      }
-    }
-    var map;
-    function initMap() {
-      var mapLayer = document.getElementById("map-layer");
-      var centerCoordinates = new google.maps.LatLng(37.6, -95.665);
-      var defaultOptions = { center: centerCoordinates, zoom: 4 }
-      map = new google.maps.Map(mapLayer, defaultOptions);
-    }
-
-
+   
   
 </script>
-<script src="https://maps.googleapis.com/maps/api/js?key= AIzaSyDCGnfVn3_6jmcMexrqmFVtO_wfRgjA8zQ&libraries=places&callback=initAutocomplete" async defer></script>

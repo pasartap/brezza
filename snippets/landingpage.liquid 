@@ -48,19 +48,60 @@
                   </div>
                 </div>
             </div>
+        <table id="address" style="display: none;" class="landingpagepost">
+  <tr>
+    <td class="label">Street address</td>
+    <td class="slimField"><input class="field" id="street_number"
+                                 disabled="true"></td>
+    <td class="wideField" colspan="2"><input class="field" id="route"
+                                             disabled="true"></td>
+  </tr>
+  <tr>
+    <td class="label">City</td>
+    <!-- Note: Selection of address components in this example is typical.
+You may need to adjust it for the locations relevant to your app. See
+https://developers.google.com/maps/documentation/javascript/examples/places-autocomplete-addressform
+-->
+    <td class="wideField" colspan="3"><input class="field" id="locality"
+                                             disabled="true"></td>
+  </tr>
+  <tr>
+    <td class="label">State</td>
+    <td class="slimField"><input class="field"
+                                 id="administrative_area_level_1" disabled="true"></td>
+    <td class="label">Zip code</td>
+    <td class="wideField"><input class="field" id="postal_code"
+                                 disabled="true"></td>
+  </tr>
+  <tr>
+    <td class="label">Country</td>
+    <td class="wideField" colspan="3"><input class="field"
+                                             id="country" disabled="true"></td>
+  </tr>
+</table>  
           </center>
       </div>        
   </div>
 </div>
 <style type="text/css">
-  .changestore .fa.fa-map-marker {
+ .changestore .fa.fa-map-marker {
   float: left;
-  position: absolute;
-  left: 10px;
-  top: 30%;
-  font-size: 20px;
+  position: relative;
+  top: 25%;
+  font-size: 16px;
   z-index: 999;
   color: #50a746;
+  margin-left: 10px;
+  margin-right: 40px;
+}
+.seprater {
+	display: inline-block;
+	width: 1px;
+	float: left;
+	position: relative;
+	left: 20px;
+	top: 31%;
+	font-size: 12px !important;
 }
 .landingpage {
   background: url("https://cdn.shopify.com/s/files/1/2168/1709/t/20/assets/HR4C5125-12.jpg?5676170823052302675");
@@ -169,7 +210,7 @@
   .changestore {
     float: left;
     margin-top: 10px;
-    width: 210px;
+    width: 170px;
     text-align: center;
     border: 2px solid #e0e0e0;
     border-radius: 6px;
@@ -183,9 +224,10 @@
 }
   .changestore h3 {
     line-height: 1.4;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: bold;
     margin: 0px;
+    text-transform: uppercase;
 }
   #myModal .landingtitle , #myModal .landingsubtitle{
   display:none;
@@ -199,6 +241,12 @@
   }
   footer{
   float:left;
+  }
+  #sticky-topbar .changestore {
+	width: 150px;
+  }
+  .changestore h3 {
+	line-height: 2.7;
   }
   
   @media screen and (max-width: 479px){
@@ -300,6 +348,9 @@
   #logo {
       margin-top: 0px;
   }
+  #myModal{
+  	z-index: 9999 !important;
+  }
   }
   @media only screen and (min-width: 768px) and (max-width: 959px) {
     h1.landingtitle br {
@@ -309,11 +360,14 @@
       margin: 10px 0px;
   }
   .changestore {
-        width: 100px;
+        width: 113px;
       font-size: 11px;
   }
   .top-header{
-    width: 128px; 
+    width: 115px; 
+  }
+  .changestore .fa.fa-map-marker{
+  	left: 3px;
   }
   .changestore h3 {
       line-height: 1.4;
@@ -340,10 +394,16 @@
   .tile_cart a span.money{
       margin-left: 4px;
   }
+  .tile_cart a span span.count{
+  	width: 20px;
+  }
+    #sticky-topbar .changestore{
+    width:113px !important;
+    }
   }
   @media only screen and (min-width: 960px) and (max-width: 1024px) {
     .changestore {
-        float: right !important;
+        float: left !important;
     }
     .tile_cart {
         padding: 0px 0px 14px;
@@ -351,6 +411,35 @@
     #autocomplete {
         max-width: 79%;
     }
+    .mgk-top-cart{
+    	padding-right: 5px !important;
+    }
+    .changestore{
+    	width: 125px !important;
+    }
+    
+	.changestore span {
+		font-size: 10px;
+	}
+	.changestore .fa.fa-map-marker {
+		left: 3px;
+		top: 24%;
+		font-size: 18px;
+	}
+	.tile_cart a {
+		padding: 0 3px 0 0;
+	}
+	.tile_cart a .fa-shopping-cart {
+		width: 30px;
+	}
+	.tile_cart a span span.count {
+		width: 20px;
+	}
+    #sticky-topbar .changestore h3{
+      font-size:14px;
+    }
+    
+
   }
  
 </style>
@@ -454,8 +543,11 @@
                  if(total == 1){
                   $("ul.mannualstore li:first-child").click();
                  }
-                }else{
+                }else{                  
                   var msgnostore = 'Sorry, PasarTap does not provide service at this location. Please select a market below to continue browsing our products.';
+                  if(postcode ==''){
+                  		msgnostore +='<br>Sorry, your location could not be determined. Please select a market manually below.';
+                  }
                  $(".mannualstore").before("<p class='nostoremsg'><strong>"+msgnostore+"</strong></p>");
                   var storelist = '';
                    if(response.slot != 'No'){
@@ -520,12 +612,14 @@
       $("#sticky-mmenu").addClass("hideall");
       $(".mm-page").addClass("padding0high");
       $("#myModal").remove();
+      $(".innerpagepost").remove();
       
     }else{
       $(".sitecontainers").addClass("showall");
       $(".landingpage").addClass("hideall");
       $("#footer").addClass("showall");
       $("#sticky-mmenu").addClass("showall");
+      $(".landingpagepost").remove();
     }
     hideLoading();
     if($.cookie('PasarStoreName') != undefined){
